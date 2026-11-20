@@ -1,0 +1,335 @@
+{
+  "nota": "SIMULACIÓN",
+  "wip": {
+    "To Do": null,
+    "In Progress": 3,
+    "In Review": 2,
+    "Done": null
+  },
+  "sprints": [
+    {
+      "sprint": 1,
+      "comprometido": 16,
+      "velocidad": 13,
+      "dias": [
+        {
+          "dia": 0,
+          "fecha": "2026-09-07",
+          "ideal": 16,
+          "real": 16
+        },
+        {
+          "dia": 1,
+          "fecha": "2026-09-07",
+          "ideal": 14.4,
+          "real": 16
+        },
+        {
+          "dia": 2,
+          "fecha": "2026-09-08",
+          "ideal": 12.8,
+          "real": 16
+        },
+        {
+          "dia": 3,
+          "fecha": "2026-09-09",
+          "ideal": 11.2,
+          "real": 13
+        },
+        {
+          "dia": 4,
+          "fecha": "2026-09-10",
+          "ideal": 9.6,
+          "real": 13
+        },
+        {
+          "dia": 5,
+          "fecha": "2026-09-11",
+          "ideal": 8,
+          "real": 10
+        },
+        {
+          "dia": 6,
+          "fecha": "2026-09-14",
+          "ideal": 6.4,
+          "real": 8
+        },
+        {
+          "dia": 7,
+          "fecha": "2026-09-15",
+          "ideal": 4.8,
+          "real": 8
+        },
+        {
+          "dia": 8,
+          "fecha": "2026-09-16",
+          "ideal": 3.2,
+          "real": 5
+        },
+        {
+          "dia": 9,
+          "fecha": "2026-09-17",
+          "ideal": 1.6,
+          "real": 5
+        },
+        {
+          "dia": 10,
+          "fecha": "2026-09-18",
+          "ideal": 0,
+          "real": 3
+        }
+      ],
+      "historias": [
+        "H1",
+        "H2",
+        "H3",
+        "H6",
+        "H8",
+        "H16"
+      ],
+      "noTerminadas": [
+        "H6"
+      ]
+    },
+    {
+      "sprint": 2,
+      "comprometido": 14,
+      "velocidad": 14,
+      "dias": [
+        {
+          "dia": 0,
+          "fecha": "2026-09-21",
+          "ideal": 14,
+          "real": 14
+        },
+        {
+          "dia": 1,
+          "fecha": "2026-09-21",
+          "ideal": 12.6,
+          "real": 14
+        },
+        {
+          "dia": 2,
+          "fecha": "2026-09-22",
+          "ideal": 11.2,
+          "real": 11
+        },
+        {
+          "dia": 3,
+          "fecha": "2026-09-23",
+          "ideal": 9.8,
+          "real": 11
+        },
+        {
+          "dia": 4,
+          "fecha": "2026-09-24",
+          "ideal": 8.4,
+          "real": 11
+        },
+        {
+          "dia": 5,
+          "fecha": "2026-09-25",
+          "ideal": 7,
+          "real": 8
+        },
+        {
+          "dia": 6,
+          "fecha": "2026-09-28",
+          "ideal": 5.6,
+          "real": 8
+        },
+        {
+          "dia": 7,
+          "fecha": "2026-09-29",
+          "ideal": 4.2,
+          "real": 8
+        },
+        {
+          "dia": 8,
+          "fecha": "2026-09-30",
+          "ideal": 2.8,
+          "real": 3
+        },
+        {
+          "dia": 9,
+          "fecha": "2026-10-01",
+          "ideal": 1.4,
+          "real": 3
+        },
+        {
+          "dia": 10,
+          "fecha": "2026-10-02",
+          "ideal": 0,
+          "real": 0
+        }
+      ],
+      "historias": [
+        "H5",
+        "H6",
+        "H7",
+        "H9"
+      ],
+      "noTerminadas": []
+    },
+    {
+      "sprint": 3,
+      "comprometido": 16,
+      "velocidad": 16,
+      "dias": [
+        {
+          "dia": 0,
+          "fecha": "2026-10-05",
+          "ideal": 16,
+          "real": 16
+        },
+        {
+          "dia": 1,
+          "fecha": "2026-10-05",
+          "ideal": 14.4,
+          "real": 16
+        },
+        {
+          "dia": 2,
+          "fecha": "2026-10-06",
+          "ideal": 12.8,
+          "real": 16
+        },
+        {
+          "dia": 3,
+          "fecha": "2026-10-07",
+          "ideal": 11.2,
+          "real": 16
+        },
+        {
+          "dia": 4,
+          "fecha": "2026-10-08",
+          "ideal": 9.6,
+          "real": 11
+        },
+        {
+          "dia": 5,
+          "fecha": "2026-10-09",
+          "ideal": 8,
+          "real": 11
+        },
+        {
+          "dia": 6,
+          "fecha": "2026-10-12",
+          "ideal": 6.4,
+          "real": 6
+        },
+        {
+          "dia": 7,
+          "fecha": "2026-10-13",
+          "ideal": 4.8,
+          "real": 6
+        },
+        {
+          "dia": 8,
+          "fecha": "2026-10-14",
+          "ideal": 3.2,
+          "real": 3
+        },
+        {
+          "dia": 9,
+          "fecha": "2026-10-15",
+          "ideal": 1.6,
+          "real": 0
+        },
+        {
+          "dia": 10,
+          "fecha": "2026-10-16",
+          "ideal": 0,
+          "real": 0
+        }
+      ],
+      "historias": [
+        "H10",
+        "H11",
+        "H12",
+        "H15"
+      ],
+      "noTerminadas": []
+    },
+    {
+      "sprint": 4,
+      "comprometido": 16,
+      "velocidad": 16,
+      "dias": [
+        {
+          "dia": 0,
+          "fecha": "2026-10-19",
+          "ideal": 16,
+          "real": 16
+        },
+        {
+          "dia": 1,
+          "fecha": "2026-10-19",
+          "ideal": 14.4,
+          "real": 16
+        },
+        {
+          "dia": 2,
+          "fecha": "2026-10-20",
+          "ideal": 12.8,
+          "real": 16
+        },
+        {
+          "dia": 3,
+          "fecha": "2026-10-21",
+          "ideal": 11.2,
+          "real": 11
+        },
+        {
+          "dia": 4,
+          "fecha": "2026-10-22",
+          "ideal": 9.6,
+          "real": 11
+        },
+        {
+          "dia": 5,
+          "fecha": "2026-10-23",
+          "ideal": 8,
+          "real": 11
+        },
+        {
+          "dia": 6,
+          "fecha": "2026-10-26",
+          "ideal": 6.4,
+          "real": 6
+        },
+        {
+          "dia": 7,
+          "fecha": "2026-10-27",
+          "ideal": 4.8,
+          "real": 6
+        },
+        {
+          "dia": 8,
+          "fecha": "2026-10-28",
+          "ideal": 3.2,
+          "real": 3
+        },
+        {
+          "dia": 9,
+          "fecha": "2026-10-29",
+          "ideal": 1.6,
+          "real": 3
+        },
+        {
+          "dia": 10,
+          "fecha": "2026-10-30",
+          "ideal": 0,
+          "real": 0
+        }
+      ],
+      "historias": [
+        "H13",
+        "H14",
+        "H17",
+        "H18"
+      ],
+      "noTerminadas": []
+    }
+  ]
+}

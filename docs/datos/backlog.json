@@ -1,0 +1,100 @@
+{
+  "_nota": "SIMULACIÓN ACADÉMICA. Fechas de sprint y avance diario son ficticios. Fuente única para Jira, Gantt y burndown.",
+  "epicas": [
+    {
+      "id": "E1",
+      "nombre": "Directorio de hierberos y tiendas naturistas",
+      "descripcion": "Listado de puestos de mercado, ferias y tiendas naturistas con distrito, dirección, horario y contacto.",
+      "objetivo": "Dar presencia digital a hierberos que hoy dependen del boca a boca y permitir que el comprador sepa dónde encontrarlos."
+    },
+    {
+      "id": "E2",
+      "nombre": "Catálogo de productos, precios y disponibilidad",
+      "descripcion": "Búsqueda de hierbas y productos naturales con precio, unidad y disponibilidad por puesto.",
+      "objetivo": "Reducir la incertidumbre del comprador sobre qué ofrece cada puesto, cuánto cuesta y si hay stock antes de desplazarse."
+    },
+    {
+      "id": "E3",
+      "nombre": "Procedencia y uso tradicional responsable",
+      "descripcion": "Ficha de cada planta (nombre común y científico), procedencia declarada y uso tradicional con aviso de que no es consejo médico.",
+      "objetivo": "Ofrecer información clara sobre origen y uso tradicional sin atribuir beneficios clínicos no sustentados."
+    },
+    {
+      "id": "E4",
+      "nombre": "Gestión de vendedores y autenticación",
+      "descripcion": "Registro e inicio de sesión de hierberos, publicación y actualización de sus productos con control de acceso por propietario.",
+      "objetivo": "Que el propio hierbero mantenga su oferta actualizada de forma segura, sin intermediarios."
+    },
+    {
+      "id": "E5",
+      "nombre": "Plataforma DevSecOps y despliegue en nube",
+      "descripcion": "Pipeline de integración continua, análisis de seguridad y despliegue automatizado en Vercel con verificación posterior.",
+      "objetivo": "Publicar cambios frecuentes con calidad y seguridad verificadas, con trazabilidad de qué versión está en producción."
+    }
+  ],
+  "historias": [
+    {"id":"H1","epica":"E1","sp":3,"moscow":"Must","sprint":1,"dia_fin":5,
+     "texto":"Como comprador, quiero ver un listado de hierberos y tiendas naturistas con su mercado y distrito, para saber dónde comprar hierbas.",
+     "ca":["Dado que existen puestos registrados, cuando ingreso a /puestos, entonces veo nombre, tipo (hierbero/tienda), mercado y distrito de cada puesto.","Dado que no hay puestos, cuando ingreso a /puestos, entonces veo el mensaje 'No hay puestos registrados'."]},
+    {"id":"H2","epica":"E1","sp":3,"moscow":"Must","sprint":1,"dia_fin":8,"depende":["H1"],
+     "texto":"Como comprador, quiero filtrar los puestos por distrito, para encontrar el más cercano.",
+     "ca":["Dado el listado de puestos, cuando selecciono el distrito 'Breña', entonces solo veo puestos de Breña.","Dado un filtro activo, cuando elijo 'Todos', entonces vuelvo a ver todos los puestos."]},
+    {"id":"H3","epica":"E1","sp":2,"moscow":"Must","sprint":1,"dia_fin":10,"depende":["H1"],
+     "texto":"Como comprador, quiero ver la ficha de un puesto con dirección, horario y contacto, para visitarlo o comunicarme.",
+     "ca":["Dado un puesto existente, cuando abro su ficha, entonces veo dirección, horario, teléfono y sus productos publicados.","Dado un identificador inexistente, cuando abro la ficha, entonces veo la página 'Puesto no encontrado'."]},
+    {"id":"H4","epica":"E1","sp":5,"moscow":"Could","sprint":null,
+     "texto":"Como comprador, quiero ver los puestos en un mapa, para ubicarlos visualmente.",
+     "ca":["Dado que un puesto tiene coordenadas, cuando abro el mapa, entonces veo un marcador con su nombre."]},
+    {"id":"H5","epica":"E2","sp":5,"moscow":"Must","sprint":2,"dia_fin":8,"depende":["H8"],
+     "texto":"Como comprador, quiero buscar productos por el nombre de la hierba, para saber qué puestos la venden.",
+     "ca":["Dado el catálogo, cuando busco 'muña', entonces veo los productos cuyo nombre o planta contiene 'muña' sin distinguir mayúsculas ni tildes.","Dado una búsqueda sin coincidencias, cuando la envío, entonces veo 'No se encontraron productos'."]},
+    {"id":"H6","epica":"E2","sp":3,"moscow":"Must","sprint":2,"sprint_inicial":1,"dia_fin":2,
+     "texto":"Como comprador, quiero ver el precio, la unidad y la disponibilidad de cada producto, para decidir antes de ir al puesto.",
+     "ca":["Dado un producto publicado, cuando lo veo en el catálogo, entonces se muestra precio en soles, unidad de venta y 'Disponible' o 'Agotado' según su stock.","Dado un producto con stock 0, cuando se muestra, entonces aparece como 'Agotado'."]},
+    {"id":"H7","epica":"E2","sp":3,"moscow":"Should","sprint":2,"dia_fin":10,"depende":["H5"],
+     "texto":"Como comprador, quiero filtrar por disponibilidad y precio máximo, para comparar opciones.",
+     "ca":["Dado el catálogo, cuando marco 'Solo disponibles', entonces no veo productos agotados.","Dado el catálogo, cuando indico precio máximo S/ 5, entonces solo veo productos con precio menor o igual a 5."]},
+    {"id":"H8","epica":"E2","sp":2,"moscow":"Must","sprint":1,"dia_fin":6,
+     "texto":"Como comprador, quiero ver solo productos publicados, para no consultar información incompleta.",
+     "ca":["Dado un producto en borrador, cuando consulto el catálogo o /api/productos, entonces ese producto no aparece.","Dado un producto publicado, cuando consulto el catálogo, entonces sí aparece."]},
+    {"id":"H9","epica":"E3","sp":3,"moscow":"Must","sprint":2,"dia_fin":5,
+     "texto":"Como comprador, quiero ver la procedencia declarada de cada hierba, para conocer su origen.",
+     "ca":["Dado un producto publicado, cuando veo su detalle, entonces aparece la procedencia (región/provincia) declarada por el vendedor.","Dado que la procedencia es obligatoria, cuando un vendedor publica sin procedencia, entonces el sistema rechaza la publicación."]},
+    {"id":"H10","epica":"E3","sp":3,"moscow":"Must","sprint":3,"dia_fin":9,
+     "texto":"Como comprador, quiero leer el uso tradicional declarado con un aviso de que no es consejo médico, para informarme de forma responsable.",
+     "ca":["Dado un producto con uso tradicional, cuando lo veo, entonces se muestra el texto junto al aviso 'Información de uso tradicional; no reemplaza la consulta médica'.","Dado un vendedor que escribe afirmaciones como 'cura' o 'elimina el cáncer', cuando publica, entonces la validación rechaza el texto."]},
+    {"id":"H11","epica":"E3","sp":5,"moscow":"Should","sprint":3,"dia_fin":4,
+     "texto":"Como administrador, quiero mantener fichas de plantas con nombre común y científico, para estandarizar la información del catálogo.",
+     "ca":["Dado el catálogo de plantas, cuando un producto se asocia a una planta, entonces se muestra su nombre científico.","Dado un usuario no administrador, cuando intenta modificar plantas, entonces la política RLS lo impide."]},
+    {"id":"H12","epica":"E4","sp":5,"moscow":"Must","sprint":3,"dia_fin":6,
+     "texto":"Como hierbero, quiero registrarme e iniciar sesión, para administrar mi puesto.",
+     "ca":["Dado un correo y contraseña válidos, cuando me registro, entonces Supabase Auth crea mi cuenta y debo confirmar el correo.","Dado que no inicié sesión, cuando abro /panel, entonces soy redirigido a /login."]},
+    {"id":"H13","epica":"E4","sp":5,"moscow":"Must","sprint":4,"dia_fin":6,"depende":["H12","H15"],
+     "texto":"Como hierbero, quiero publicar un producto con precio, stock, procedencia y uso tradicional, para que los compradores lo encuentren.",
+     "ca":["Dado que inicié sesión y tengo un puesto, cuando envío un producto válido, entonces se guarda y aparece en el catálogo si está publicado.","Dado un precio menor o igual a 0 o stock negativo, cuando envío el formulario, entonces veo el error de validación y no se guarda."]},
+    {"id":"H14","epica":"E4","sp":3,"moscow":"Should","sprint":4,"dia_fin":8,"depende":["H13"],
+     "texto":"Como hierbero, quiero actualizar el precio y el stock de mis productos, para mantener la información vigente.",
+     "ca":["Dado un producto propio, cuando cambio su stock a 0, entonces el catálogo lo muestra como 'Agotado'.","Dado un precio nuevo válido, cuando lo guardo, entonces el catálogo muestra el nuevo precio."]},
+    {"id":"H15","epica":"E4","sp":3,"moscow":"Must","sprint":3,"dia_fin":8,"depende":["H12"],
+     "texto":"Como hierbero, quiero que solo yo pueda modificar mis productos, para proteger mi información.",
+     "ca":["Dado un usuario autenticado, cuando intenta actualizar un producto de otro puesto, entonces la política RLS rechaza la operación.","Dado un visitante anónimo, cuando intenta insertar un producto, entonces la base de datos lo rechaza."]},
+    {"id":"H16","epica":"E5","sp":3,"moscow":"Must","sprint":1,"dia_fin":3,
+     "texto":"Como equipo de desarrollo, quiero un pipeline de CI con build y pruebas automatizadas, para detectar errores antes de integrar a main.",
+     "ca":["Dado un Pull Request hacia test o main, cuando se abre, entonces GitHub Actions ejecuta instalación con lockfile, typecheck, tests y build.","Dado que una prueba falla, cuando termina el pipeline, entonces el check queda en rojo y bloquea el merge."]},
+    {"id":"H17","epica":"E5","sp":5,"moscow":"Must","sprint":4,"dia_fin":3,"depende":["H16"],
+     "texto":"Como equipo de desarrollo, quiero análisis de seguridad (SAST, dependencias y secretos) en cada PR, para bloquear vulnerabilidades antes de producción.",
+     "ca":["Dado un PR, cuando se ejecuta el pipeline, entonces corren CodeQL, npm audit (nivel high) y Gitleaks.","Dado un secreto expuesto o una vulnerabilidad high, cuando termina el análisis, entonces el check falla y bloquea el merge."]},
+    {"id":"H18","epica":"E5","sp":3,"moscow":"Must","sprint":4,"dia_fin":10,"depende":["H16","H17"],
+     "texto":"Como equipo de desarrollo, quiero desplegar main en Vercel y verificar la URL pública, para publicar con trazabilidad del SHA.",
+     "ca":["Dado un merge a main con checks en verde, cuando Vercel termina el despliegue, entonces un workflow verifica que la URL responde 200 y que /api/productos devuelve datos.","Dado un despliegue exitoso, cuando reviso el resumen del workflow, entonces veo el SHA publicado y la URL."]},
+    {"id":"H19","epica":"E4","sp":3,"moscow":"Won't","sprint":null,
+     "texto":"Como administrador, quiero moderar publicaciones reportadas por compradores, para retirar información engañosa.",
+     "ca":["Dado un producto reportado, cuando el administrador lo revisa, entonces puede despublicarlo."]}
+  ],
+  "sprints": [
+    {"n":1,"inicio":"2026-09-07","fin":"2026-09-18","objetivo":"Base técnica con CI y directorio de puestos consultable por distrito."},
+    {"n":2,"inicio":"2026-09-21","fin":"2026-10-02","objetivo":"Catálogo buscable con precio, disponibilidad y procedencia."},
+    {"n":3,"inicio":"2026-10-05","fin":"2026-10-16","objetivo":"Información de uso tradicional responsable y acceso seguro de hierberos."},
+    {"n":4,"inicio":"2026-10-19","fin":"2026-10-30","objetivo":"Publicación por hierberos y entrega segura en la nube (release MVP)."}
+  ]
+}
