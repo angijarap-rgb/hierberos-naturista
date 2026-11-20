@@ -1,11 +1,11 @@
 # Verificación posterior al despliegue.
 # Vercel (integración Git) es el ÚNICO mecanismo que despliega: publica producción al hacer merge a main.
-# Al terminar, Vercel envía un evento deployment_status a GitHub y este workflow comprueba,
-# sin credenciales de Vercel, que la URL pública responde y que la ruta crítica funciona.
+# Al terminar, Vercel publica en GitHub un commit status (context "Vercel") y este workflow, disparado
+# por ese evento status, comprueba sin credenciales de Vercel que la URL pública sirve ese SHA y que la ruta crítica funciona.
 name: Verificar despliegue
 
 on:
-  deployment_status:
+  status: # commit status que publica la integración Git de Vercel
   workflow_dispatch: # respaldo manual: verifica el SHA actual de main
 
 permissions:
@@ -14,12 +14,12 @@ permissions:
 jobs:
   verificar:
     name: Verificación post-despliegue (producción)
-    if: github.event_name == 'workflow_dispatch' || (github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Production')
+    if: github.event_name == 'workflow_dispatch' || (github.event.state == 'success' && github.event.context == 'Vercel' && contains(github.event.branches.*.name, 'main'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
       URL_PUBLICA: ${{ vars.URL_PRODUCCION }}
-      SHA_ESPERADO: ${{ github.event.deployment.sha || github.sha }}
+      SHA_ESPERADO: ${{ github.event.sha || github.sha }}
     steps:
       - name: Esperar a que la URL pública sirva el SHA desplegado
         run: |
@@ -59,7 +59,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: evidencia-despliegue-${{ github.event.deployment.sha || github.sha }}
+          name: evidencia-despliegue-${{ github.event.sha || github.sha }}
           path: |
             productos.json
             salud.json
