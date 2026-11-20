@@ -6,7 +6,7 @@ import { backlog, burndown, planHistorias, sprint, WIP } from "./simulacion.mjs"
 const dir = new URL("../", import.meta.url);
 const ICON = JSON.parse(readFileSync(new URL("iconos.json", import.meta.url), "utf8"));
 const FONT = "Segoe UI, Arial, Helvetica, sans-serif";
-const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 const guardar = (nombre, svg) => {
   writeFileSync(new URL(nombre, dir), svg);
   console.log("✔", nombre);

@@ -7,7 +7,7 @@ import { backlog, burndown, planHistorias, sprint, WIP, verificarWip } from "../
 const aqui = new URL("./", import.meta.url);
 const docs = new URL("../", import.meta.url);
 const L = JSON.parse(readFileSync(new URL("enlaces.json", aqui), "utf8"));
-const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 const svg = (n) => readFileSync(new URL(`diagramas/${n}.svg`, docs), "utf8").replace(/<\?xml[^>]*>/, "");
 const img = (n, alt) => {
   const p = new URL(`evidencias/${n}`, docs);
