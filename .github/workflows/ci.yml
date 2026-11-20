@@ -115,3 +115,54 @@ jobs:
           name: reporte-gitleaks
           path: gitleaks.sarif
           if-no-files-found: ignore
+
+  # Despliegue: solo tras un push a main con build, dependencias y secretos en verde.
+  # Vercel (integración Git) publica producción con cada push a main; este job espera a que
+  # la URL pública sirva exactamente este commit y comprueba la ruta crítica (sin tokens de Vercel).
+  # En PRs y en la rama test aparece como omitido (skipped).
+  despliegue:
+    name: Despliegue en Vercel
+    needs: [build-test, dependencias, secretos]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: produccion
+      url: ${{ vars.URL_PRODUCCION }}
+    env:
+      URL_PUBLICA: ${{ vars.URL_PRODUCCION }}
+      SHA_ESPERADO: ${{ github.sha }}
+    steps:
+      - name: Esperar a que Vercel publique este commit en producción
+        run: |
+          test -n "$URL_PUBLICA" || { echo "Falta la variable URL_PRODUCCION"; exit 1; }
+          for i in $(seq 1 40); do
+            SHA=$(curl -fsS "$URL_PUBLICA/api/salud" | jq -r .sha || true)
+            echo "Intento $i: sha=$SHA"
+            [ "$SHA" = "$SHA_ESPERADO" ] && exit 0
+            sleep 15
+          done
+          echo "Vercel no publicó el SHA esperado"; exit 1
+
+      - name: Smoke test en producción (/ y /api/productos)
+        run: |
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" "$URL_PUBLICA/")
+          [ "$CODE" = "200" ] || { echo "Home respondió $CODE"; exit 1; }
+          curl -fsS "$URL_PUBLICA/api/productos?q=muna" -o productos.json
+          TOTAL=$(jq .total productos.json)
+          BORRADORES=$(jq '[.productos[] | select(.publicado != true)] | length' productos.json)
+          [ "$TOTAL" -ge 1 ] || { echo "La búsqueda no devolvió productos"; exit 1; }
+          [ "$BORRADORES" = "0" ] || { echo "Se expusieron borradores"; exit 1; }
+          curl -fsS "$URL_PUBLICA/api/salud" -o salud.json
+          {
+            echo "### Desplegado en Vercel"
+            echo ""
+            echo "| Dato | Valor |"
+            echo "|---|---|"
+            echo "| URL pública | $URL_PUBLICA |"
+            echo "| SHA publicado | \`$SHA_ESPERADO\` |"
+            echo "| Entorno | $(jq -r .entorno salud.json) |"
+            echo "| Base de datos | $(jq -r .baseDeDatos salud.json) |"
+            echo "| GET / | $CODE |"
+            echo "| GET /api/productos?q=muna | $TOTAL productos, $BORRADORES borradores |"
+          } >> "$GITHUB_STEP_SUMMARY"
