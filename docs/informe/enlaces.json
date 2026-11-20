@@ -11,7 +11,7 @@
   "nube_estado": "Pública: responde 200 sin sesión de Vercel (verificado)",
   "pr": "https://github.com/angijarap-rgb/hierberos-naturista/pull/1",
   "run_ci": "https://github.com/angijarap-rgb/hierberos-naturista/actions/runs/44667450130",
-  "run_deploy": "",
-  "sha": "667cfb46366e3d8a253d2e48b292e78e3169dd12",
+  "run_deploy": "https://github.com/angijarap-rgb/hierberos-naturista/actions/runs/44670435072",
+  "sha": "1f68bbe037c5d51a2c087feb667ba1027c3d4f61",
   "supabase_ref": "pqktkuenwposmoqmljfu"
 }

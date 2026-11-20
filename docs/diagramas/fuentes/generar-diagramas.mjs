@@ -274,7 +274,7 @@ function svgPipeline() {
   s += etapa(800, 124, 240, 150, "Merge a main", ["Solo si todos los checks", "están en verde", "Commit = SHA a publicar"], "github", "#fff", "#c9c9c9");
   s += etapa(800, 300, 240, 150, "Deploy · Vercel", ["Integración Git (único", "mecanismo de despliegue)", "Production ← main", "Env Supabase solo en Prod"], "vercel", "#f6f6f6", "#999");
   s += `<text x="1080" y="112" font-size="13" font-weight="700" fill="#5d6b5d">4 · Operación y monitoreo</text>`;
-  s += etapa(1080, 124, 290, 150, "Verificar despliegue", ["Evento deployment_status", "Espera SHA en /api/salud", "GET / = 200", "GET /api/productos sin borradores"], "githubactions", "#effaf3", "#8fd1a8");
+  s += etapa(1080, 124, 290, 150, "Verificar despliegue", ["Evento status «Vercel» en main", "Espera SHA en /api/salud", "GET / = 200", "GET /api/productos sin borradores"], "githubactions", "#effaf3", "#8fd1a8");
   s += etapa(1080, 300, 290, 150, "Producción", ["URL pública en Vercel", "Supabase: Auth + Postgres", "RLS activo", "Logs Vercel / Supabase"], "supabase", "#effaf3", "#8fd1a8");
 
   s += flecha(124, 274, 124, 298, "");
@@ -283,7 +283,7 @@ function svgPipeline() {
   s += flecha(758, 280, 798, 200, "todos ✔", -2, -4, "#2f6b3a");
   s += flecha(920, 274, 920, 298, "webhook");
   s += flecha(1040, 375, 1078, 375, "");
-  s += flecha(1040, 330, 1078, 220, "deployment_status", -4, 22);
+  s += flecha(1040, 330, 1078, 220, "commit status", -4, 22);
   s += flecha(1225, 274, 1225, 298, "");
   s += `<path d="M640,464 V520 H124 V432" fill="none" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#fa)"/>`;
   s += `<text x="140" y="540" font-size="12" font-weight="600" fill="#c0392b">✘ check en rojo → bloquea el merge; se corrige en test y se vuelve a ejecutar</text>`;

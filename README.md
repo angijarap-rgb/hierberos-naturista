@@ -60,7 +60,7 @@ Las migraciones se aplican manualmente en el SQL Editor del proyecto Supabase (n
 |---|---|---|
 | `ci.yml` | PR y push a `main`/`test` | npm ci → typecheck → pruebas (JUnit) → build · npm audit · dependency review · Gitleaks |
 | `codeql.yml` | PR, push y semanal | SAST CodeQL `security-extended` |
-| `verificar-despliegue.yml` | `deployment_status` de Vercel (Production) | Espera el SHA en `/api/salud`, prueba `/` y `/api/productos`, publica resumen |
+| `verificar-despliegue.yml` | `status` (commit status «Vercel» en main) + `workflow_dispatch` | Espera el SHA en `/api/salud`, prueba `/` y `/api/productos`, publica resumen |
 
 ## Documentación
 
