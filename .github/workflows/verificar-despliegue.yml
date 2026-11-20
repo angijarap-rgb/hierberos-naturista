@@ -1,0 +1,65 @@
+# Verificación posterior al despliegue.
+# Vercel (integración Git) es el ÚNICO mecanismo que despliega: publica producción al hacer merge a main.
+# Al terminar, Vercel envía un evento deployment_status a GitHub y este workflow comprueba,
+# sin credenciales de Vercel, que la URL pública responde y que la ruta crítica funciona.
+name: Verificar despliegue
+
+on:
+  deployment_status:
+
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    name: Verificación post-despliegue (producción)
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      URL_PUBLICA: ${{ vars.URL_PRODUCCION }}
+      SHA_ESPERADO: ${{ github.event.deployment.sha }}
+    steps:
+      - name: Esperar a que la URL pública sirva el SHA desplegado
+        run: |
+          test -n "$URL_PUBLICA" || { echo "Falta la variable URL_PRODUCCION"; exit 1; }
+          for i in $(seq 1 20); do
+            SHA=$(curl -fsS "$URL_PUBLICA/api/salud" | jq -r .sha || true)
+            echo "Intento $i: sha=$SHA"
+            [ "$SHA" = "$SHA_ESPERADO" ] && exit 0
+            sleep 15
+          done
+          echo "La URL pública no sirve el SHA esperado"; exit 1
+
+      - name: Comprobar página principal y ruta crítica /api/productos
+        run: |
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" "$URL_PUBLICA/")
+          [ "$CODE" = "200" ] || { echo "Home respondió $CODE"; exit 1; }
+          curl -fsS "$URL_PUBLICA/api/productos?q=muna" -o productos.json
+          TOTAL=$(jq .total productos.json)
+          BORRADORES=$(jq '[.productos[] | select(.publicado != true)] | length' productos.json)
+          [ "$TOTAL" -ge 1 ] || { echo "La búsqueda no devolvió productos"; exit 1; }
+          [ "$BORRADORES" = "0" ] || { echo "Se expusieron borradores"; exit 1; }
+          curl -fsS "$URL_PUBLICA/api/salud" -o salud.json
+          {
+            echo "### Despliegue verificado"
+            echo ""
+            echo "| Dato | Valor |"
+            echo "|---|---|"
+            echo "| URL pública | $URL_PUBLICA |"
+            echo "| SHA publicado | \`$SHA_ESPERADO\` |"
+            echo "| Entorno | $(jq -r .entorno salud.json) |"
+            echo "| Base de datos | $(jq -r .baseDeDatos salud.json) |"
+            echo "| GET / | $CODE |"
+            echo "| GET /api/productos?q=muna | $TOTAL productos, $BORRADORES borradores |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Guardar evidencia
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidencia-despliegue-${{ github.event.deployment.sha }}
+          path: |
+            productos.json
+            salud.json
+          if-no-files-found: ignore

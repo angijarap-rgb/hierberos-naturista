@@ -1,0 +1,226 @@
+{
+  "H16": {
+    "id": "H16",
+    "epica": "E5",
+    "sp": 3,
+    "sprintIni": 1,
+    "diaIni": 1,
+    "sprintFin": 1,
+    "diaFin": 3,
+    "inicio": "2026-09-07",
+    "fin": "2026-09-09",
+    "depende": []
+  },
+  "H1": {
+    "id": "H1",
+    "epica": "E1",
+    "sp": 3,
+    "sprintIni": 1,
+    "diaIni": 3,
+    "sprintFin": 1,
+    "diaFin": 5,
+    "inicio": "2026-09-09",
+    "fin": "2026-09-11",
+    "depende": []
+  },
+  "H8": {
+    "id": "H8",
+    "epica": "E2",
+    "sp": 2,
+    "sprintIni": 1,
+    "diaIni": 5,
+    "sprintFin": 1,
+    "diaFin": 6,
+    "inicio": "2026-09-11",
+    "fin": "2026-09-14",
+    "depende": []
+  },
+  "H2": {
+    "id": "H2",
+    "epica": "E1",
+    "sp": 3,
+    "sprintIni": 1,
+    "diaIni": 6,
+    "sprintFin": 1,
+    "diaFin": 8,
+    "inicio": "2026-09-14",
+    "fin": "2026-09-16",
+    "depende": [
+      "H1"
+    ]
+  },
+  "H3": {
+    "id": "H3",
+    "epica": "E1",
+    "sp": 2,
+    "sprintIni": 1,
+    "diaIni": 9,
+    "sprintFin": 1,
+    "diaFin": 10,
+    "inicio": "2026-09-17",
+    "fin": "2026-09-18",
+    "depende": [
+      "H1"
+    ]
+  },
+  "H6": {
+    "id": "H6",
+    "epica": "E2",
+    "sp": 3,
+    "sprintIni": 1,
+    "diaIni": 7,
+    "sprintFin": 2,
+    "diaFin": 2,
+    "inicio": "2026-09-15",
+    "fin": "2026-09-22",
+    "depende": []
+  },
+  "H9": {
+    "id": "H9",
+    "epica": "E3",
+    "sp": 3,
+    "sprintIni": 2,
+    "diaIni": 3,
+    "sprintFin": 2,
+    "diaFin": 5,
+    "inicio": "2026-09-23",
+    "fin": "2026-09-25",
+    "depende": []
+  },
+  "H5": {
+    "id": "H5",
+    "epica": "E2",
+    "sp": 5,
+    "sprintIni": 2,
+    "diaIni": 5,
+    "sprintFin": 2,
+    "diaFin": 8,
+    "inicio": "2026-09-25",
+    "fin": "2026-09-30",
+    "depende": [
+      "H8"
+    ]
+  },
+  "H7": {
+    "id": "H7",
+    "epica": "E2",
+    "sp": 3,
+    "sprintIni": 2,
+    "diaIni": 9,
+    "sprintFin": 2,
+    "diaFin": 10,
+    "inicio": "2026-10-01",
+    "fin": "2026-10-02",
+    "depende": [
+      "H5"
+    ]
+  },
+  "H11": {
+    "id": "H11",
+    "epica": "E3",
+    "sp": 5,
+    "sprintIni": 3,
+    "diaIni": 1,
+    "sprintFin": 3,
+    "diaFin": 4,
+    "inicio": "2026-10-05",
+    "fin": "2026-10-08",
+    "depende": []
+  },
+  "H12": {
+    "id": "H12",
+    "epica": "E4",
+    "sp": 5,
+    "sprintIni": 3,
+    "diaIni": 3,
+    "sprintFin": 3,
+    "diaFin": 6,
+    "inicio": "2026-10-07",
+    "fin": "2026-10-12",
+    "depende": []
+  },
+  "H15": {
+    "id": "H15",
+    "epica": "E4",
+    "sp": 3,
+    "sprintIni": 3,
+    "diaIni": 7,
+    "sprintFin": 3,
+    "diaFin": 8,
+    "inicio": "2026-10-13",
+    "fin": "2026-10-14",
+    "depende": [
+      "H12"
+    ]
+  },
+  "H10": {
+    "id": "H10",
+    "epica": "E3",
+    "sp": 3,
+    "sprintIni": 3,
+    "diaIni": 7,
+    "sprintFin": 3,
+    "diaFin": 9,
+    "inicio": "2026-10-13",
+    "fin": "2026-10-15",
+    "depende": []
+  },
+  "H17": {
+    "id": "H17",
+    "epica": "E5",
+    "sp": 5,
+    "sprintIni": 4,
+    "diaIni": 1,
+    "sprintFin": 4,
+    "diaFin": 3,
+    "inicio": "2026-10-19",
+    "fin": "2026-10-21",
+    "depende": [
+      "H16"
+    ]
+  },
+  "H13": {
+    "id": "H13",
+    "epica": "E4",
+    "sp": 5,
+    "sprintIni": 4,
+    "diaIni": 3,
+    "sprintFin": 4,
+    "diaFin": 6,
+    "inicio": "2026-10-21",
+    "fin": "2026-10-26",
+    "depende": [
+      "H12",
+      "H15"
+    ]
+  },
+  "H14": {
+    "id": "H14",
+    "epica": "E4",
+    "sp": 3,
+    "sprintIni": 4,
+    "diaIni": 7,
+    "sprintFin": 4,
+    "diaFin": 8,
+    "inicio": "2026-10-27",
+    "fin": "2026-10-28",
+    "depende": [
+      "H13"
+    ]
+  },
+  "H18": {
+    "id": "H18",
+    "epica": "E5",
+    "sp": 3,
+    "sprintIni": 4,
+    "diaIni": 8,
+    "sprintFin": 4,
+    "diaFin": 10,
+    "inicio": "2026-10-28",
+    "fin": "2026-10-30",
+    "depende": [
+      "H16",
+      "H17"
+    ]
+  }
+}

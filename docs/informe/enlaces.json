@@ -1,0 +1,17 @@
+{
+  "estudiante": "Angie Jessenia Jara Peña",
+  "seccion": "",
+  "docente": "",
+  "fecha": "2026-11-19",
+  "github": "https://github.com/angijarap-rgb/hierberos-naturista",
+  "github_estado": "PENDIENTE: crear repositorio y hacer push",
+  "jira": "https://angiejara.atlassian.net/jira/software/projects/HMN/boards/1/backlog",
+  "jira_estado": "Proyecto creado. PENDIENTE: invitar al docente (necesita su correo)",
+  "nube": "",
+  "nube_estado": "PENDIENTE: importar el repo en Vercel",
+  "pr": "",
+  "run_ci": "",
+  "run_deploy": "",
+  "sha": "",
+  "supabase_ref": "pqktkuenwposmoqmljfu"
+}
