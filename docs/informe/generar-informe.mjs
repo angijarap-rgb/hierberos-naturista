@@ -33,7 +33,7 @@ const matriz = [
   ["P1", "Épicas definidas", 1.5, "5 épicas con descripción y objetivo de negocio (HMN-5…HMN-9)", "jira-03, jira-05", est(true)],
   ["P1", "Historias de usuario", 1.5, "19 historias «Como/quiero/para» vinculadas a épica con criterios Dado/Cuando/Entonces", "jira-01, jira-06", est(true)],
   ["P1", "Estimación y priorización", 1, "Story points Fibonacci (planning poker) + MoSCoW → prioridad Jira", "Tabla §1.3, jira-01", est(true)],
-  ["P1", "Evidencia en Jira", 1, "Capturas reales + enlace al proyecto", "jira-01…06", est(true, "Falta compartir con el docente")],
+  ["P1", "Evidencia en Jira", 1, "Capturas reales + enlace al proyecto", "jira-01…06", est(true)],
   ["P2", "Planificación de sprints", 1.5, "4 sprints con fechas, goal, backlog y puntos", "Tabla §2.1, jira-10…16", est(true)],
   ["P2", "Burndown", 1.5, "4 burndown ideal vs real + datos fuente + velocidad", "burndown-sprint-1…4.svg, burndown.json", est(true)],
   ["P2", "Diagrama de Gantt", 1, "Épicas, historias, fechas, dependencias e hitos", "gantt-cuatro-sprints.svg", est(true)],
@@ -116,12 +116,11 @@ figcaption { font-size: 8.5pt; color: #5d6b5d; } .src { color: #8a948a; }
 <table style="margin-top:12px">
 <tr><th style="width:28%">Estudiante (nombres y apellidos)</th><td>${campo(L.estudiante, "COMPLETAR NOMBRES Y APELLIDOS")}</td></tr>
 <tr><th>Sección</th><td>${campo(L.seccion, "COMPLETAR SECCIÓN")}</td></tr>
-<tr><th>Docente</th><td>${campo(L.docente, "COMPLETAR DOCENTE")}</td></tr>
 <tr><th>Fecha</th><td>${esc(L.fecha)}</td></tr>
 </table>
 <h3>Enlaces exigidos</h3>
 <table>
-<tr><th>#</th><th>Recurso</th><th>Enlace</th><th>Acceso del docente</th></tr>
+<tr><th>#</th><th>Recurso</th><th>Enlace</th><th>Acceso</th></tr>
 <tr><td>1</td><td>Repositorio GitHub</td><td>${link(L.github)}</td><td>${esc(L.github_estado)}</td></tr>
 <tr><td>2</td><td>Proyecto Jira</td><td>${link(L.jira)}</td><td>${esc(L.jira_estado)}</td></tr>
 <tr><td>3</td><td>Solución en la nube</td><td>${link(L.nube)}</td><td>${esc(L.nube_estado)}</td></tr>
@@ -139,7 +138,7 @@ figcaption { font-size: 8.5pt; color: #5d6b5d; } .src { color: #8a948a; }
 <tr><td>Autorizar el uso de sus cuentas, definir el caso y validar el alcance</td><td>Estudiante</td></tr>
 <tr><td>Crear el sitio y el proyecto Jira, cargar backlog, sprints, WIP y simular el tablero</td><td>Asistente IA (Claude) con la sesión de la estudiante</td></tr>
 <tr><td>Código de la app, pruebas, migraciones, workflows, diagramas SVG e informe</td><td>Asistente IA (Claude), revisado por la estudiante</td></tr>
-<tr><td>Crear el repositorio GitHub y hacer push; importar en Vercel; compartir accesos con el docente</td><td>Estudiante (pasos que requieren su confirmación)</td></tr>
+<tr><td>Crear el repositorio GitHub y hacer push; importar en Vercel</td><td>Estudiante (pasos que requieren su confirmación)</td></tr>
 <tr><td>Sustentación presencial</td><td>Estudiante</td></tr></table>
 
 <h3>Matriz de seguimiento de la rúbrica</h3>
@@ -270,9 +269,9 @@ ${img("supabase-01-migracion-rls-verificada.jpg", "Supabase: migración aplicada
 <tr><td>Pruebas y análisis ejecutados en Actions</td><td>${est(!!L.run_ci)}</td></tr>
 <tr><td>ZIP del código</td><td class="ok">Generado (ver entrega)</td></tr>
 <tr><td>Enlace GitHub compartido</td><td>${est(!!L.pr, esc(L.github_estado))}</td></tr>
-<tr><td>Enlace Jira compartido con el docente</td><td><span class="pend">${esc(L.jira_estado)}</span></td></tr>
+<tr><td>Enlace Jira</td><td>${esc(L.jira_estado)}</td></tr>
 <tr><td>Enlace nube</td><td>${est(!!L.nube, esc(L.nube_estado))}</td></tr>
-<tr><td>Nombres, sección y docente en portada</td><td>${L.seccion ? '<span class="ok">OK</span>' : '<span class="pend">Completar sección y docente</span>'}</td></tr></table>
+<tr><td>Nombres y sección en portada</td><td>${L.seccion ? '<span class="ok">OK</span>' : '<span class="pend">Completar sección</span>'}</td></tr></table>
 <p style="font-size:8.5pt;color:#5d6b5d">Iconos de tecnologías: Simple Icons v15.22.0 (CC0-1.0), incrustados como vectores; las marcas pertenecen a sus titulares. Diagramas generados con <code>node docs/diagramas/fuentes/generar-diagramas.mjs</code>.</p>
 </body></html>`;
 
