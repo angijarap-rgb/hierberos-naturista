@@ -1,12 +1,11 @@
 {
   "estudiante": "Angie Jessenia Jara Peña",
   "seccion": "",
-  "docente": "",
   "fecha": "2026-11-19",
   "github": "https://github.com/angijarap-rgb/hierberos-naturista",
   "github_estado": "Repositorio público: accesible sin invitación (verificado sin sesión)",
   "jira": "https://angiejara.atlassian.net/jira/software/projects/HMN/boards/1/backlog",
-  "jira_estado": "PENDIENTE: invitar al docente al sitio (falta su correo)",
+  "jira_estado": "Sitio Jira propio de la estudiante (angiejara.atlassian.net)",
   "nube": "https://hierberos-naturista.vercel.app",
   "nube_estado": "Pública: responde 200 sin sesión de Vercel (verificado)",
   "pr": "https://github.com/angijarap-rgb/hierberos-naturista/pull/1",
