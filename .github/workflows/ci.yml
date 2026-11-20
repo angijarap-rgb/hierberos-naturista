@@ -1,0 +1,117 @@
+# CI: build + pruebas + análisis de dependencias y secretos.
+# Se ejecuta en cada PR hacia test/main y en cada push a esas ramas.
+# No usa secretos de producción: la app compila y se prueba en modo demo (datos ficticios).
+name: CI
+
+on:
+  pull_request:
+    branches: [main, test]
+  push:
+    branches: [main, test]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test:
+    name: Build y pruebas
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Instalar dependencias desde el lockfile
+        run: npm ci
+
+      - name: Verificación de tipos (TypeScript)
+        run: npm run typecheck
+
+      - name: Pruebas unitarias (Vitest)
+        run: npm run test:ci
+
+      - name: Resumen de pruebas
+        if: always()
+        run: |
+          node -e '
+            const fs = require("fs");
+            if (!fs.existsSync("reports/junit.xml")) process.exit(0);
+            const x = fs.readFileSync("reports/junit.xml", "utf8");
+            const g = (a) => (x.match(new RegExp(a + "=\"(\\d+)\"")) || [])[1] || "0";
+            const out = `### Resultado de pruebas\n\n| Pruebas | Fallidas | Errores | Omitidas |\n|---|---|---|---|\n| ${g("tests")} | ${g("failures")} | ${g("errors")} | ${g("skipped")} |\n`;
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, out);
+          '
+
+      - name: Publicar reporte JUnit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-pruebas
+          path: reports/junit.xml
+          if-no-files-found: ignore
+
+      - name: Build de producción (Next.js)
+        run: npm run build
+
+  dependencias:
+    name: Análisis de dependencias
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: npm audit (bloquea vulnerabilidades high/critical)
+        run: |
+          npm audit --audit-level=high --json > npm-audit.json || true
+          node -e '
+            const a = require("./npm-audit.json").metadata.vulnerabilities;
+            const s = `### npm audit\n\n| critical | high | moderate | low |\n|---|---|---|---|\n| ${a.critical} | ${a.high} | ${a.moderate} | ${a.low} |\n`;
+            require("fs").appendFileSync(process.env.GITHUB_STEP_SUMMARY, s);
+            if (a.critical + a.high > 0) { console.error("Vulnerabilidades high/critical encontradas"); process.exit(1); }
+          '
+      - name: Guardar reporte de auditoría
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-npm-audit
+          path: npm-audit.json
+      - name: Revisión de dependencias del PR
+        if: github.event_name == 'pull_request'
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
+
+  secretos:
+    name: Escaneo de secretos (Gitleaks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Gitleaks
+        env:
+          GITLEAKS_VERSION: 8.24.3
+        run: |
+          curl -sSL -o gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          tar -xzf gitleaks.tar.gz gitleaks
+          ./gitleaks git --redact --report-format sarif --report-path gitleaks.sarif --exit-code 1 .
+      - name: Guardar reporte Gitleaks (redactado)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-gitleaks
+          path: gitleaks.sarif
+          if-no-files-found: ignore
